@@ -8,7 +8,7 @@ import warnings
 import os
 
 from math import floor
-from docplex.mp.model import Model
+# from docplex.mp.model import Model
 from scipy.spatial import Delaunay
 import scipy.stats as st 
 from uuid import uuid4
@@ -20,7 +20,7 @@ if os.path.basename(os.getcwd()) == 'sar_moe8':
 from sar_moe8.utils import PrintProgressBar
 from sar_moe8.utils import memoize
 
-WORK_DIR = '//math.aau.dk/ProjectGroups/f21moe8or'
+WORK_DIR = '.'
 MAP_DIR = os.path.join(WORK_DIR, 'maps')
 
 class Map:
@@ -733,3 +733,8 @@ class MapGenerator:
 # inst = Map(path_to_sample, base_node = 0)
 # inst.plot(add_targets=False, add_bases = True, base_colors=['white','white','lime','white','white','white','white','white'])
 # inst.plot_flows(plot_base = False, show_nodes=True)
+
+# for i in range(10, 110, 10):
+#     map_inst = MapGenerator(map_dim=(i,i))
+#     map_inst.plot()
+#     map_inst.save()
