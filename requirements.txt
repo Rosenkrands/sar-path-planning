@@ -1,0 +1,8 @@
+pandas
+numpy
+scipy
+dijkstar
+sklearn
+matplotlib
+pytictoc
+docplex
