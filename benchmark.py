@@ -29,7 +29,9 @@ for map in maps:
 
         # Hill Climbing
         hillclimbing = HillClimbing(map_inst, initial_solution=greedy, min_score=min_score, nghbr_lvl=nghbr_lvl)
-        hillclimbing
+        hillclimbing.solve(L=L)
+        results.append(['Hillclimbing', map, hillclimbing.score_improvement[1], 'Missing time spent'])
+    
     # GRASP
 
 
