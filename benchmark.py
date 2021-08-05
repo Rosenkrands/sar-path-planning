@@ -20,7 +20,7 @@ for map in maps:
     print(f'### current map is {map} ###')
     map_inst = Map(os.path.join('.','maps',map))
 
-    reps = 10
+    reps = 1
     min_score=1
     nghbr_lvl=2
     use_centroids=False
@@ -32,6 +32,7 @@ for map in maps:
     # Greedy algorithm & Hill Climbing
     for i in range(reps):
         # Greedy
+        print('Started on the greedy solution')
         greedy = Greedy(map_inst, min_score=min_score, nghbr_lvl=nghbr_lvl)
         blockPrint()
         greedy.solve(L=L, num_vehicles=num_vehicles,use_centroids=use_centroids,rcl=1)
@@ -39,6 +40,7 @@ for map in maps:
         results.append(['Greedy', map, greedy.score, greedy.time_spent])
 
         # Hill Climbing
+        print('Started on the hillclimb solution')
         hillclimbing = HillClimbing(map_inst, initial_solution=greedy, min_score=min_score, nghbr_lvl=nghbr_lvl)
         blockPrint()
         hillclimbing.solve(L=L)
