@@ -43,7 +43,7 @@ for map in maps:
         blockPrint()
         hillclimbing.solve(L=L)
         enablePrint()
-        results.append(['Hillclimbing', map, hillclimbing.score_improvement[1], 'Missing time spent'])
+        results.append(['Hillclimbing', map, hillclimbing.score_improvement[1], hillclimbing.time_spent])
 
 #df1 is greedy and hc, df2 is grasp.
 df1 = pd.DataFrame(results, columns=['algorithm', 'instance', 'objective', 'runtime'])
