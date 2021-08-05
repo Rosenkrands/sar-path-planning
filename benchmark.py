@@ -47,17 +47,17 @@ for map in maps:
         enablePrint()
         results.append(['Hillclimbing', map, hillclimbing.score_improvement[1], hillclimbing.time_spent])
 
-# #df1 is greedy and hc, df2 is grasp.
-# df1 = pd.DataFrame(results, columns=['algorithm', 'instance', 'objective', 'runtime'])
-# df2 = pd.read_csv('grasp_results.csv')
-# #df2
+#df1 is greedy and hc, df2 is grasp.
+df1 = pd.DataFrame(results, columns=['algorithm', 'instance', 'objective', 'runtime'])
+df2 = pd.read_csv('grasp_results.csv')
+#df2
 
-# df = df1.append(df2, ignore_index=True)
+df = df1.append(df2, ignore_index=True)
 
-# df.groupby(['algorithm', 'instance'])['objective', 'runtime'].mean()
-# df.groupby(['algorithm', 'instance'])['objective', 'runtime'].std()
+df.groupby(['algorithm', 'instance'])['objective', 'runtime'].mean()
+df.groupby(['algorithm', 'instance'])['objective', 'runtime'].std()
 
-# summary = df.groupby(['algorithm', 'instance']).agg(['mean', 'std'])
-# summary.columns = [' '.join(col).strip() for col in summary.columns.values]
-# summary.reset_index()
-# summary.to_csv(os.path.join('.','benchmark_results.csv'))
+summary = df.groupby(['algorithm', 'instance']).agg(['mean', 'std'])
+summary.columns = [' '.join(col).strip() for col in summary.columns.values]
+summary.reset_index()
+summary.to_csv(os.path.join('.','benchmark_results.csv'))
