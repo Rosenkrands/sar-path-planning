@@ -34,8 +34,13 @@ for map in maps:
     
     # GRASP
 
+#df1 is greedy and hc, df2 is grasp.
+df1 = pd.DataFrame(results, columns=['algorithm', 'instance', 'objective', 'runtime'])
+df2 = pd.read_csv('grasp_results.csv')
+#df2
 
-df = pd.DataFrame(results, columns=['algorithm', 'instance', 'objective', 'runtime'])
+df = df1.append(df2, ignore_index=True)
+
 df.groupby(['algorithm', 'instance'])['objective', 'runtime'].mean()
 df.groupby(['algorithm', 'instance'])['objective', 'runtime'].std()
 
