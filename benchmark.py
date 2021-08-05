@@ -2,7 +2,16 @@ from sar_moe8.map import Map
 from sar_moe8.solution import Greedy, HillClimbing, GRASP_single_iter
 
 import os
+import sys
 import pandas as pd
+
+# Disable Printing
+def blockPrint():
+    sys.stdout = open(os.devnull, 'w')
+
+# Restore Printing
+def enablePrint():
+    sys.stdout = sys.__stdout__
 
 maps = os.listdir(os.path.join('.','maps'))
 results = []
@@ -24,15 +33,17 @@ for map in maps:
     for i in range(reps):
         # Greedy
         greedy = Greedy(map_inst, min_score=min_score, nghbr_lvl=nghbr_lvl)
+        blockPrint()
         greedy.solve(L=L, num_vehicles=num_vehicles,use_centroids=use_centroids,rcl=1)
+        enablePrint()
         results.append(['Greedy', map, greedy.score, greedy.time_spent])
 
         # Hill Climbing
         hillclimbing = HillClimbing(map_inst, initial_solution=greedy, min_score=min_score, nghbr_lvl=nghbr_lvl)
+        blockPrint()
         hillclimbing.solve(L=L)
+        enablePrint()
         results.append(['Hillclimbing', map, hillclimbing.score_improvement[1], 'Missing time spent'])
-    
-    # GRASP
 
 #df1 is greedy and hc, df2 is grasp.
 df1 = pd.DataFrame(results, columns=['algorithm', 'instance', 'objective', 'runtime'])
@@ -47,3 +58,4 @@ df.groupby(['algorithm', 'instance'])['objective', 'runtime'].std()
 summary = df.groupby(['algorithm', 'instance']).agg(['mean', 'std'])
 summary.columns = [' '.join(col).strip() for col in summary.columns.values]
 summary.reset_index()
+summary.to_csv(os.path.join('.','benchmark_results.csv'))
