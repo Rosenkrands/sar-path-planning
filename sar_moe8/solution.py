@@ -1164,6 +1164,8 @@ class HillClimbing(Solution):
             return new_path, delta_score, delta_len
 
         # Start of the hill climbing algorithm
+        start = time.time()
+        
         previous_solution = {}
         initial_score = {}
         initial_length = {}
@@ -1335,6 +1337,8 @@ class HillClimbing(Solution):
             self.path[vehicle_id] = ['x_' + str(i) for i in path]
             self.vertices[vehicle_id] = ['y_' + str(i) for i in current_solution[vehicle_id]]
         print('Done!')
+        end = time.time()
+        self.time_spent = round(end - start, 2) 
 
 def GRASP(map_inst, n_iter, rcl, nghbr_lvl, num_vehicles, L, min_score=1, use_centroids=True, initial_tsp=False):
     '''
