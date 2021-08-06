@@ -102,7 +102,7 @@ if __name__ == '__main__':
             complete_estimate = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time() + 5*(total_iter-i)*60))
             print(j+i*30, 'of', total_iter, 'time is', current_time(),'eta', complete_estimate)
 ###### number of cores to be used ########################
-            pool = mp.Pool(processes=3) 
+            pool = mp.Pool(processes=7) 
             try:
                 start = time.time()
                 best_score = 0

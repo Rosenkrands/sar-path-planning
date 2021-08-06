@@ -4,6 +4,7 @@ from sar_moe8.solution import Greedy, HillClimbing, GRASP_single_iter
 import os
 import sys
 import pandas as pd
+from math import floor
 
 # Disable Printing
 def blockPrint():
@@ -25,7 +26,7 @@ for map in maps:
     nghbr_lvl=2
     use_centroids=False
     L=84
-    num_vehicles=1
+    num_vehicles=floor(len(map_inst.map.columns.values)**(1/2)/2)
 
     # Finding solutions
 
