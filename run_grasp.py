@@ -56,18 +56,17 @@ def main(arg):
 
 ## main part of the script
 travel_length = [84]*10
-n_vehicles = [floor(size**(1/2)) for size in range(10,110,10)]
 list_of_params = [{
                 'map_inst': [inst],
                 'rcl': [.8],
                 'nghbr_lvl': [2],
-                'num_vehicles': [num_vehicles],
+                'num_vehicles': [floor(len(inst.map.columns.values)**(1/2)/2)],
                 'L': [length],
                 'min_score': [1],
                 'use_centroids': [True],
                 'initial_tsp': [False]
                 }
-                for inst, length, num_vehicles in zip(map_inst, travel_length, n_vehicles)
+                for inst, length in zip(map_inst, travel_length)
                 ]
 
 current_time = lambda: time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
