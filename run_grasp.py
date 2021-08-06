@@ -1,6 +1,7 @@
 import itertools
 import multiprocessing as mp
 from pandas import DataFrame
+from math import floor
 import os
 import sys
 import time
@@ -55,19 +56,19 @@ def main(arg):
 
 ## main part of the script
 travel_length = [84]*10
+n_vehicles = [floor(size**(1/2)) for size in range(10,110,10)]
 list_of_params = [{
                 'map_inst': [inst],
                 'rcl': [.8],
                 'nghbr_lvl': [2],
-                'num_vehicles': [2],
+                'num_vehicles': [num_vehicles],
                 'L': [length],
                 'min_score': [1],
                 'use_centroids': [True],
                 'initial_tsp': [False]
                 }
-                for inst, length in zip(map_inst, travel_length)
+                for inst, length, num_vehicles in zip(map_inst, travel_length, n_vehicles)
                 ]
-
 
 current_time = lambda: time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
 
@@ -115,7 +116,7 @@ if __name__ == '__main__':
 ######## 5 minute runtime ##############
                     if time.time() - start + main_time > 5*60:
                         raise RuntimeError
-###### note: here we use runtime from last saved iteration. If we have a solution at 4.45 and at 5.15, the runtime will be 4.45 with the best score at that time.
+                    # note: here we use runtime from last saved iteration. If we have a solution at 4.45 and at 5.15, the runtime will be 4.45 with the best score at that time.
                     runtime = time.time() - start - main_time
             except RuntimeError:
                 print('Time limit reached, terminating the pool')
