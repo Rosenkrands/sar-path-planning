@@ -56,15 +56,27 @@ def main(arg):
 
 ## main part of the script
 travel_length = [84]*10
+# list_of_params = [{
+#                 'map_inst': [inst],
+#                 'rcl': [.8],
+#                 'nghbr_lvl': [2],
+#                 'num_vehicles': [floor(len(inst.map.columns.values)**(1/2)/2)],
+#                 'L': [length],
+#                 'min_score': [1],
+#                 'use_centroids': [True],
+#                 'initial_tsp': [False]
+#                 }
+#                 for inst, length in zip(map_inst, travel_length)
+#                 ]
 list_of_params = [{
-                'map_inst': [inst],
-                'rcl': [.8],
-                'nghbr_lvl': [2],
-                'num_vehicles': [floor(len(inst.map.columns.values)**(1/2)/2)],
-                'L': [length],
-                'min_score': [1],
-                'use_centroids': [True],
-                'initial_tsp': [False]
+                'map_inst': inst,
+                'rcl': .8,
+                'nghbr_lvl': 2,
+                'num_vehicles': floor(len(inst.map.columns.values)**(1/2)/2),
+                'L': length,
+                'min_score': 1,
+                'use_centroids': True,
+                'initial_tsp': False
                 }
                 for inst, length in zip(map_inst, travel_length)
                 ]
