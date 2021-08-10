@@ -10,6 +10,7 @@ from sar_moe8.solution import GRASP_single_iter
 
 #path names
 maps = os.listdir(os.path.join('.','maps'))
+# maps = ['bc915b','cd97cf','f79242']
 root_dir = os.path.dirname(__file__)
 map_dir = os.path.join(root_dir, 'maps')
 map_inst = [Map(os.path.join(root_dir, map_dir, path), base_node = 0) for path in maps]
