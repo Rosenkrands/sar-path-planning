@@ -50,7 +50,7 @@ for map in maps:
 
 #df1 is greedy and hc, df2 is grasp.
 df1 = pd.DataFrame(results, columns=['algorithm', 'instance', 'objective', 'runtime'])
-df2 = pd.read_csv('grasp_results.csv')
+df2 = pd.read_csv('grasp_results_local.csv')
 #df2
 
 df = df1.append(df2, ignore_index=True)
