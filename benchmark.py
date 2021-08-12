@@ -21,7 +21,7 @@ for map in maps:
     print(f'### current map is {map} ###')
     map_inst = Map(os.path.join('.','maps',map))
 
-    reps = 1
+    reps = 30
     min_score=1
     nghbr_lvl=2
     use_centroids=False
