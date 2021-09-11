@@ -10,7 +10,6 @@ from sar_moe8.solution import GRASP_single_iter
 
 #path names
 maps = os.listdir(os.path.join('.','maps'))
-# maps = ['bc915b','cd97cf','f79242']
 root_dir = os.path.dirname(__file__)
 map_dir = os.path.join(root_dir, 'maps')
 map_inst = [Map(os.path.join(root_dir, map_dir, path), base_node = 0) for path in maps]
@@ -56,30 +55,29 @@ def main(arg):
     return sol.score_improvement[1], sol, start_main
 
 ## main part of the script
-travel_length = [84]*10
-# list_of_params = [{
-#                 'map_inst': [inst],
-#                 'rcl': [.8],
-#                 'nghbr_lvl': [2],
-#                 'num_vehicles': [floor(len(inst.map.columns.values)**(1/2)/2)],
-#                 'L': [length],
-#                 'min_score': [1],
-#                 'use_centroids': [True],
-#                 'initial_tsp': [False]
-#                 }
-#                 for inst, length in zip(map_inst, travel_length)
-#                 ]
+travel_length = {
+    '132167': [300]*6,
+    '3e559b': [168, 168, 300, 300],
+    '4fceab': [168, 168, 300, 300],
+    '506fa3': [168],
+    '802616': [168]*2,
+    '88182c': [168, 168, 300, 300, 300],
+    'cd97cf': [300]*5,
+    'f79242': [168]*3,
+    '8ea3cb': [300]*7
+}
+
 list_of_params = [{
                 'map_inst': inst,
                 'rcl': .8,
                 'nghbr_lvl': 2,
-                'num_vehicles': floor(len(inst.map.columns.values)**(1/2)/2),
-                'L': length,
+                'num_vehicles': floor(len(inst.map.columns.values)**(1/2)) - 3,
+                'L': travel_length[inst.id],
                 'min_score': 1,
                 'use_centroids': True,
                 'initial_tsp': False
                 }
-                for inst, length in zip(map_inst, travel_length)
+                for inst in map_inst
                 ]
 
 current_time = lambda: time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
@@ -94,7 +92,7 @@ def enablePrint():
 
 if __name__ == '__main__':
     results = []
-    total_iter = len(list_of_params)*2
+    total_iter = len(list_of_params)*30
     for i, params in enumerate(list_of_params):
 ##### Number of repetitions for each map ##############
         for j in range(30):
@@ -112,7 +110,7 @@ if __name__ == '__main__':
             }
             params_with_greedy = [full_greedy] 
             params_with_greedy.extend([params]*10000000)
-            complete_estimate = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time() + 5*(total_iter-i)*60))
+            complete_estimate = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time() + 5*(total_iter-i*30)*60))
             print(j+i*30, 'of', total_iter, 'time is', current_time(),'eta', complete_estimate)
 ###### number of cores to be used ########################
             pool = mp.Pool(processes=7) 
@@ -126,7 +124,9 @@ if __name__ == '__main__':
                     if _[0] > best_score:
                         best_score = _[0]
 ######## 5 minute runtime ##############
+                    
                     if time.time() - start + main_time > 5*60:
+                        print(time.time() - start)
                         raise RuntimeError
                     # note: here we use runtime from last saved iteration. If we have a solution at 4.45 and at 5.15, the runtime will be 4.45 with the best score at that time.
                     runtime = time.time() - start - main_time
@@ -136,7 +136,10 @@ if __name__ == '__main__':
             pool.close()
             pool.join()
 
-            results.append(['GRASP', parameters[0], best_score, runtime])
+            try:
+                results.append(['GRASP', parameters[0], best_score, runtime])
+            except:
+                results.append(['GRASP', parameters[0], best_score, -1])
             df = DataFrame(
                 results,
                 columns=['algorithm', 'instance', 'objective', 'runtime']
