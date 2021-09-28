@@ -6,6 +6,21 @@ The meaning behind including the code is to show how the implementation was done
 However if you want to try and run some of the code, we included requirements in `./requirements.txt`. 
 To use the exact solution approach, it is a prerequisite that IBM ILOG CPLEX is installed (this is paid software, although there is a free academic tier).
 
+# Code
+The actual implementation of the map generator and solution methods lies in the `sar_moe8` directory (which is structured as a Python package).
+We took an Object-Oriented approach to the implementation, the structure of the package is as follows:
+- `map.py` Includes two classes related to generating and instantiating map instances
+  - `class MapGenerator` Generate a score map and save the scores, target locations and difficulty, as `txt` files, in the `maps` directory.
+  - `class Map` Loads a map instance from the `maps` directory and includes methods to generate the network structure, plotting a heatmap etc.
+- `solution.py` Includes classes related to generating solutions using different methods.
+  - `class Solution` is a base class from which the different solution approaches will inherit, it includes various plotting methods for visualizing the solutions found.
+  - `Class Cplex` the exact solution methods based on the IBM ILOG CPLEX Python API.
+  - `Class Greedy` the greedy heuristic.
+  - `Class HillClimbing` improves an existing solution using different operators in a hillclimbing fashion.
+  - `Function GRASP` performs the Greedy Randomized Adaptive Search Procedure for a fixed number of iterations.
+  - `Function GRASP_single_iter` performs a single GRASP iteration.
+- `utils.py` Includes various functions used printing a command-line progress bar etc.
+
 # Demonstration
 In this section a small example will demonstrate how to use map generation and solution methods.
 
@@ -58,20 +73,6 @@ grasp.plot(single_ax=True)
 ![grasp_solution](/demonstration/grasp_solution.png)
 
 The full demonstration script is also available at `./demonstration.py`.
-# Code
-The actual implementation of the map generator and solution methods are lies in the `sar_moe8` directory (which is structured as a Python package).
-We took an Object-Oriented approach to the implementation, the structure of the package is as follows:
-- `map.py` Includes two classes related to generating and instantiating map instances
-  - `class MapGenerator` Generate a score map and save the scores, target locations and difficulty, as `txt` files, in the `maps` directory.
-  - `class Map` Loads a map instance from the `maps` directory and includes methods to generate the network structure, plotting a heatmap etc.
-- `solution.py` Includes classes related to generating solutions using different methods.
-  - `class Solution` is a base class from which the different solution approaches will inherit, it includes various plotting methods for visualizing the solutions found.
-  - `Class Cplex` the exact solution methods based on the IBM ILOG CPLEX Python API.
-  - `Class Greedy` the greedy heuristic.
-  - `Class HillClimbing` improves an existing solution using different operators in a hillclimbing fashion.
-  - `Function GRASP` performs the Greedy Randomized Adaptive Search Procedure for a fixed number of iterations.
-  - `Function GRASP_single_iter` performs a single GRASP iteration.
-- `utils.py` Includes various functions used printing a command-line progress bar etc.
 
 # Results
 There are two files in the results directory:
