@@ -1,4 +1,3 @@
-from numpy import single
 from sar_moe8.map import MapGenerator, Map
 from sar_moe8.solution import Greedy, HillClimbing, GRASP
 
