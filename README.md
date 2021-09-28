@@ -1,7 +1,10 @@
 # Introduction to the repository
 The purpose of this repo is to share code and results from simulation studies done for the project. 
-The code will not be runnable as is, some paths are hard coded among other potential issues. 
+The code will not be runnable as is, some paths are hard coded among other potential issues.
 The meaning behind including the code is to show how the implementation was done, and can maybe help in understanding the algorithm implementation.
+
+However if you want to try and run some of the code, we included requirements in `./requirements.txt`. 
+To use the exact solution approach, it is a prerequisite that IBM ILOG CPLEX is installed (this is paid software, although there is a free academic tier).
 
 # Demonstration
 In this section a small example will demonstrate how to use map generation and solution methods.
