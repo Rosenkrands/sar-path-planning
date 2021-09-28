@@ -14,7 +14,7 @@ First of all we need to import the functions and classes from the sar_moe8 packa
 from sar_moe8.map import MapGenerator, Map
 from sar_moe8.solution import Greedy, HillClimbing, GRASP
 ```
-Having done this we can now generate a map instance to work on in this demonstration, we choose to generate a quadratic map of size 20. This generated map have methods to plot both the heatmap as well as a network representation. Lastly it has a method to save it in the map directory.
+Having done this we can now generate a map instance to work on in this demonstration, we choose to generate a quadratic map of size 20. This generated map object has methods to plot both the heatmap as well as a network representation. Lastly it has a method to save it in the map directory.
 ```python
 map_inst = MapGenerator(map_dim=(20,20))
 map_inst.plot()
