@@ -56,28 +56,28 @@ def main(arg):
 
 ## main part of the script
 travel_length = {
-    '132167': [300]*6,
-    '3e559b': [168, 168, 300, 300],
-    '4fceab': [168, 168, 300, 300],
-    '506fa3': [168],
-    '802616': [168]*2,
-    '88182c': [168, 168, 300, 300, 300],
-    'cd97cf': [300]*5,
-    'f79242': [168]*3,
-    '8ea3cb': [300]*7
+    '132167': [3, 300],
+    '3e559b': [4, [168, 168, 300, 300]],
+    '4fceab': [4, [168, 168, 300, 300]],
+    '506fa3': [1, 168],
+    '802616': [2, [168]*2],
+    '88182c': [3, [168, 168, 300]],
+    'cd97cf': [2, 300],
+    'f79242': [3, [168]*3],
+    '8ea3cb': [1, 300]
 }
 
 list_of_params = [{
                 'map_inst': inst,
                 'rcl': .8,
                 'nghbr_lvl': 2,
-                'num_vehicles': floor(len(inst.map.columns.values)**(1/2)) - 3,
-                'L': travel_length[inst.id],
+                'num_vehicles': travel_length[inst.id][0],
+                'L': travel_length[inst.id][1],
                 'min_score': 1,
                 'use_centroids': True,
                 'initial_tsp': False
                 }
-                for inst in map_inst
+                for inst in map_inst if inst.id in ['8ea3cb', 'cd97cf']
                 ]
 
 current_time = lambda: time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
@@ -144,7 +144,12 @@ if __name__ == '__main__':
                 results,
                 columns=['algorithm', 'instance', 'objective', 'runtime']
             )
-            df.to_csv('grasp_results.csv', index=False)
+            df.to_csv('grasp_results_reduced_number.csv', index=False)
+            # clean up so the runtime variable do not get reused
+            try:
+                del runtime
+            except:
+                pass
 
     print('All done')
     print('Elapsed time:', time.time() - start)
