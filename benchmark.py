@@ -18,15 +18,15 @@ maps = os.listdir(os.path.join('.','maps'))
 results = []
 
 travel_length = {
-    '132167': [300]*6,
-    '3e559b': [168, 168, 300, 300],
-    '4fceab': [168, 168, 300, 300],
-    '506fa3': [168],
-    '802616': [168]*2,
-    '88182c': [168, 168, 300, 300, 300],
-    'cd97cf': [300]*5,
-    'f79242': [168]*3,
-    '8ea3cb': [300]*7
+    '132167': [3, 300],
+    '3e559b': [4, [168, 168, 300, 300]],
+    '4fceab': [4, [168, 168, 300, 300]],
+    '506fa3': [1, 168],
+    '802616': [2, [168]*2],
+    '88182c': [3, [168, 168, 300]],
+    'cd97cf': [2, 300],
+    'f79242': [3, [168]*3],
+    '8ea3cb': [1, 300]
 }
 
 for map in maps:
@@ -37,13 +37,14 @@ for map in maps:
     min_score=1
     nghbr_lvl=2
     use_centroids=True
-    L=travel_length[map_inst.id]
-    num_vehicles=floor(len(map_inst.map.columns.values)**(1/2)) - 3
+    num_vehicles=travel_length[map_inst.id][0] #floor(len(map_inst.map.columns.values)**(1/2)) - 3
+    L=travel_length[map_inst.id][1]
 
     # Finding solutions
 
     # Greedy algorithm & Hill Climbing
     for i in range(reps):
+        print(i+1)
         # Greedy
         print('Started on the greedy solution')
         greedy = Greedy(map_inst, min_score=min_score, nghbr_lvl=nghbr_lvl)
